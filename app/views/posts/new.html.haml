@@ -1,0 +1,18 @@
+.row
+  .col-xs-8.col-xs-offset-2
+    %h2= 'Creation d\'un Billet'
+
+.row
+  .col-xs-8.col-xs-offset-2.well
+    = form_for @post, class: 'form', html: {multipart: true} do |f|
+      .form-group
+        = 'Titre :'
+        = f.text_field :title, class: 'form-control'
+      .form-group
+        = 'Contenu :'
+        = f.text_area :content, class: 'form-control content'
+      .form-group
+        = 'Catégorie :'
+        = f.collection_select :category_id, Category.all, :id, :name, {}, {class: 'form-control'}
+      .form-group
+        = f.button :submit, class: 'btn_success'

@@ -1,0 +1,40 @@
+.col-xs-4
+  .posts-wrapper
+    .post
+      .post-head
+        .thumb-img
+        .user_name
+          Auteur :
+          = post.user.user_name
+        .title
+          Titre :
+          =link_to post.title, post_path(post)
+        .category
+          Catégorie :
+          =post.category.name
+        %br
+      .content
+        = post.content
+      .post-bottom
+      - if post.comments
+        .comment
+        Espace commentaire :
+        %br
+        - post.comments.each do |comment|
+          .comment
+            .user-name
+              = comment.user_name
+            .comment-content
+              = comment.content
+              = link_to post_comment_path(post, comment), method: :delete, data: { confirm: "Etes vous sûr ?" } do
+                %span(class="glyphicon glyphicon-remove delete-comment")
+      .comment-form
+        = form_for [post, post.comments.new] do |f|
+          .form-group
+            = f.text_field :user_name, placeholder: 'Pseudo'
+          .form-group
+            = f.text_field :email, placeholder: 'Em@il'
+          .form-group
+            = f.text_field :content, placeholder: 'Ajouter un commentaire...'
+          .form-group
+            = f.button :submit, class: 'btn_success'
